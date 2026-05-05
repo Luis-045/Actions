@@ -1,0 +1,26 @@
+name: Act con Nginx
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  prueba-nginx:
+    runs-on: ubuntu-latest
+
+    container:
+      image: nginx:stable
+
+    steps:
+      - name: Mostrar versión de Nginx
+        run: nginx -v
+
+      - name: Validar configuración de Nginx
+        run: nginx -t
+
+      - name: Crear archivo de prueba
+        run: |
+          echo "Hola, esta accion corre dentro de un contenedor de Nginx" > prueba.txt
+          cat prueba.txt
